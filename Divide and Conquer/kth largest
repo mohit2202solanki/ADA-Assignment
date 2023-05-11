@@ -1,0 +1,68 @@
+C++ Solution
+
+struct Boundary{
+  int greater; 
+  int equal;
+  Boundary(int g, int e) : greater(g), equal(e) {}
+  void incrementBothBy(int by){
+      equal += by;
+      greater += by; 
+  }
+  void incrementGreaterBy(int by){
+      greater += by; 
+  }
+  void incrementEqualBy(int by){
+      equal += by;
+  }
+};
+
+class Solution {
+    public:
+        int findKthLargest(vector<int>& nums, int k) {
+            this->nums = nums;
+           
+            return select(0,this->nums.size(),this->nums.size()-k);
+        }
+    private:
+        vector<int> nums;
+    
+        Boundary partition(int start, int end, int n){
+            Boundary boundaries = Boundary(start,start);
+            for(int i = start; i < end; i++){
+                if(this->nums[i] == n){                    
+                    swapTwo(boundaries.greater,i);
+                    boundaries.incrementGreaterBy(1);
+                }
+                else if(this->nums[i] < n){                    
+                    swapThree(i,boundaries.greater,boundaries.equal);
+                    boundaries.incrementBothBy(1);
+                }
+            }
+            return boundaries; 
+        }
+    
+        int select(int start, int end, int k){
+            int pivot = (start+end)/2;
+            int n = this->nums[pivot];
+            Boundary boundaries = partition(start,end,n);
+            if(boundaries.equal <= k && k < boundaries.greater)
+                return n;
+            else if(k >= boundaries.greater)
+                return select(boundaries.greater,end,k);
+            else
+                return select(start,boundaries.equal,k);
+        }
+
+void swapTwo(int i, int j){
+            int temp = this->nums[i];
+            this->nums[i] = this->nums[j];
+            this->nums[j] = temp; 
+        }
+
+ void swapThree(int i, int j,int l){
+            int temp = this->nums[i];
+            this->nums[i] = this->nums[j];
+            this->nums[j] = this->nums[l];
+            this->nums[l] = temp;
+        }
+};
