@@ -1,0 +1,44 @@
+ Here's an implementation of a greedy algorithm for the Knapsack Problem in Python:
+
+
+def greedy_knapsack(items, capacity):
+    # Sort items in descending order of their value-to-weight ratio
+    sorted_items = sorted(items, key=lambda x: x[1]/x[0], reverse=True)
+
+    total_value = 0
+    total_weight = 0
+    selected_items = []
+
+    for item in sorted_items:
+        if total_weight + item[0] <= capacity:
+            total_weight += item[0]
+            total_value += item[1]
+            selected_items.append(item)
+
+    return selected_items, total_value
+
+# Example usage
+items = [(2, 12), (1, 10), (3, 20), (2, 15)]
+capacity = 5
+
+selected_items, total_value = greedy_knapsack(items, capacity)
+print("Selected Items:", selected_items)
+print("Total Value:", total_value)
+
+In this code, the `greedy_knapsack` function takes a list of items, where each item is represented as a tuple (weight, value), and the knapsack capacity.
+The function sorts the items in descending order of their value-to-weight ratio. It then iterates through the sorted items and selects them one by one as long 
+as the total weight of the selected items does not exceed the capacity.
+
+To analyze the approximation ratio of the greedy algorithm, we compare the value of the solution obtained by the greedy algorithm to the value of an optimal 
+solution. The approximation ratio is defined as:
+
+Approximation Ratio = (Value of the Greedy Solution) / (Value of the Optimal Solution)
+
+For the Knapsack Problem, the greedy algorithm does not guarantee an optimal solution. However, it is known to have a constant approximation ratio of 1/2 under 
+certain conditions, such as when the item values and weights are non-negative and there is a single constraint on the total weight.
+
+This means that, on average, the value of the greedy solution is at least half of the value of the optimal solution. In other words, the greedy algorithm provides
+a solution that is at least 50% of the optimal value.
+
+It's important to note that the approximation ratio may vary depending on the problem instance and the specific characteristics of the items. In some cases, 
+the greedy algorithm may perform better or worse than the 1/2 approximation ratio.
