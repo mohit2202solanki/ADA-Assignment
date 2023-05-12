@@ -1,0 +1,57 @@
+The Traveling Salesman Problem (TSP) is an NP-hard problem, and a brute force algorithm for finding the optimal solution involves trying all 
+possible permutations of the cities. Here's an implementation of a brute force algorithm for the TSP in Python:
+
+python
+import itertools
+
+def calculate_distance(city1, city2):
+    # Calculate the distance between two cities
+    # This function can be customized based on the problem's distance metric
+    return distance
+
+def calculate_tour_distance(tour):
+    # Calculate the total distance of a tour
+    total_distance = 0
+    for i in range(len(tour) - 1):
+        total_distance += calculate_distance(tour[i], tour[i + 1])
+    return total_distance
+
+def brute_force_tsp(cities):
+    # Generate all possible permutations of the cities
+    all_tours = list(itertools.permutations(cities))
+
+    # Initialize the best tour and its distance
+    best_tour = None
+    best_distance = float('inf')
+
+    # Iterate through all tours and find the one with the minimum distance
+    for tour in all_tours:
+        tour_distance = calculate_tour_distance(tour)
+        if tour_distance < best_distance:
+            best_tour = tour
+            best_distance = tour_distance
+
+    return best_tour, best_distance
+
+# Example usage
+cities = [(0, 0), (1, 1), (2, 3), (4, 1), (2, 2)]
+best_tour, best_distance = brute_force_tsp(cities)
+print("Best Tour:", best_tour)
+print("Best Distance:", best_distance)
+```
+
+In this code, the `calculate_distance` function calculates the distance between two cities. The `calculate_tour_distance` function calculates the 
+total distance of a given tour by summing the distances between consecutive cities. The `brute_force_tsp` function generates all possible permutations
+of the cities and iterates through them to find the tour with the minimum distance.
+
+The time complexity of the brute force algorithm for the TSP can be analyzed using Big-O notation. Let n be the number of cities.
+
+The number of possible permutations of n cities is n!, which grows factorially with the number of cities. Therefore, generating all possible tours takes
+O(n!) time.
+
+For each tour, calculating the total distance requires visiting all cities once, resulting in O(n) operations. Since there are n! tours to consider, the 
+overall time complexity of calculating the distances for all tours is O(n * n!).
+
+Hence, the total time complexity of the brute force algorithm for the TSP is O(n * n!). The algorithm becomes computationally expensive as the number of cities
+increases since the factorial growth makes the search space grow very quickly. Therefore, the brute force algorithm is only feasible for small problem instances.
+For larger instances, more efficient approximation algorithms or heuristics are used to find near-optimal solutions.
