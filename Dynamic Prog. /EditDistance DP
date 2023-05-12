@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int min(int x, int y, int z)
+{
+	if (x < y && x < z)
+		return x;
+	else if (y < x && y < z)
+		return y;
+	else
+		return z;
+}
+
+int minDis(char* s1, char* s2, int n, int m)
+{
+	int dp[n + 1][m + 1];
+
+	// Fill dp[][] table in bottom up manner
+	for (int i = 0; i <= n; i++) {
+		for (int j = 0; j <= m; j++) {
+	
+			if (i == 0)
+				dp[i][j] = j;
+		
+			else if (j == 0)
+				dp[i][j] = i;
+			
+			else if (s1[i - 1] == s2[j - 1])
+				dp[i][j] = dp[i - 1][j - 1];
+		
+			else
+				dp[i][j]
+					= 1
+					+ min(dp[i][j - 1], // Insert
+							dp[i - 1][j], // Remove
+							dp[i - 1][j - 1]); // Replace
+		}
+	}
+
+	return dp[n][m];
+}
+
+int main()
+{
+	char* str1 = "voldemort";
+	char* str2 = "dumbledore";
+
+	int n = strlen(str1), m = strlen(str2);
+
+	printf("%d", minDis(str1, str2, n, m));
+
+	return 0;
+}
+
+Time Complexity: O(m x n) 
+Auxiliary Space: O( m *n)+O(m+n) , (m*n) extra array space and (m+n) recursive stack space.
+
+Naive recursive solution: 
+
+Time Complexity of solution is exponential. 
+In worst case, we may end up doing O(3m) operations. The worst case happens when none of characters of two strings match. 
+
+Auxiliary Space: O(1), because no extra space is utilized.
