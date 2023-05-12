@@ -1,0 +1,35 @@
+The Vertex Cover Problem is known to be an NP-hard problem, meaning that there is no known polynomial-time algorithm to solve it exactly. 
+However, we can use randomized algorithms to find approximate solutions with a certain guarantee.
+
+One such randomized algorithm is the following:
+
+1. Initialize an empty set S (representing the vertex cover).
+2. Randomly select an edge (u, v) from the graph.
+3. Add u and v to S.
+4. Remove all edges incident to u and v from the graph.
+5. Repeat steps 2-4 until all edges are covered.
+
+The expected running time of this algorithm can be analyzed using probabilistic techniques. 
+Let's assume the graph has n vertices and m edges.
+
+For each iteration of the algorithm, let p be the probability that a selected edge is covered. 
+In each iteration, we randomly select an edge, and the probability of selecting a specific edge is 1/m. Therefore, the probability that an edge is not 
+covered in one iteration is (1 - 1/m). Thus, the probability that an edge is not covered in any of the iterations is [(1 - 1/m) ^ k], where k is the number
+of iterations.
+
+Now, let's consider a specific edge (u, v). For this edge to remain uncovered after all the iterations, it means that in each iteration, 
+either u or v is not selected. The probability of this happening in one iteration is (1 - 2/m). Therefore, the probability that (u, v) is not 
+covered in any of the iterations is [(1 - 2/m) ^ k].
+
+Since the graph has m edges, the expected number of edges not covered after all the iterations is m * [(1 - 2/m) ^ k]. Hence, 
+the expected size of the vertex cover found by this algorithm is n - m * [(1 - 2/m) ^ k].
+
+Note that the expected running time of the algorithm depends on the number of iterations, which is determined by the value of k. 
+The larger the value of k, the higher the probability of covering all the edges, but it also increases the running time.
+
+In practice, the running time of the algorithm can vary depending on the structure of the graph and the specific implementation details.
+Analyzing the expected running time provides insight into the behavior of the algorithm on average but does not provide a precise running time guarantee 
+for any individual instance.
+
+It's worth mentioning that there are other randomized algorithms and approximation algorithms for the Vertex Cover Problem with different performance
+guarantees and complexities.
