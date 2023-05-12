@@ -1,0 +1,58 @@
+Implementing a parallel algorithm for matrix multiplication can significantly speed up the computation on a multicore processor or GPU. One common parallelization
+technique is to divide the matrices into blocks and distribute the computation across multiple processing units. Here's an example of a parallel matrix
+multiplication algorithm using OpenMP for a multicore processor:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+
+void parallel_matrix_mult(int* A, int* B, int* C, int n, int num_threads) {
+    int i, j, k;
+    #pragma omp parallel for private(i, j, k) num_threads(num_threads)
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            int sum = 0;
+            for (k = 0; k < n; k++) {
+                sum += A[i * n + k] * B[k * n + j];
+            }
+            C[i * n + j] = sum;
+        }
+    }
+}
+
+int main() {
+    int n = 1000; // Matrix size
+    int num_threads = 4; // Number of threads
+
+    int* A = (int*)malloc(n * n * sizeof(int));
+    int* B = (int*)malloc(n * n * sizeof(int));
+    int* C = (int*)malloc(n * n * sizeof(int));
+
+    // Initialize matrices A and B
+
+    double start_time = omp_get_wtime();
+    parallel_matrix_mult(A, B, C, n, num_threads);
+    double end_time = omp_get_wtime();
+
+    printf("Elapsed time: %f seconds\n", end_time - start_time);
+
+    free(A);
+    free(B);
+    free(C);
+
+    return 0;
+}
+
+In this code, the `parallel_matrix_mult` function performs matrix multiplication in a parallelized manner using OpenMP directives. The `num_threads` 
+parameter specifies the number of threads to be used for parallel execution.
+
+To analyze the speedup and efficiency of the parallel algorithm, you can measure the elapsed time for different matrix sizes and thread configurations. 
+Calculate the speedup by dividing the sequential execution time by the parallel execution time. Efficiency is then obtained by dividing the speedup by the number 
+of threads used.
+
+For example, you can vary the matrix size `n` and the number of threads `num_threads`, measure the execution time for both sequential and parallel versions, and 
+calculate the speedup and efficiency. The speedup represents how much faster the parallel algorithm is compared to the sequential algorithm, while efficiency
+indicates how well the parallel algorithm utilizes the available resources.
+
+It's worth noting that the performance of a parallel algorithm can also be affected by factors such as memory access patterns, cache utilization, and load
+balancing. Optimizing these aspects can further improve the speedup and efficiency of the parallel matrix multiplication algorithm.
