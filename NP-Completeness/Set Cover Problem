@@ -1,0 +1,35 @@
+Approximate Greedy Algorithm: 
+Let U be the universe of elements, {S1, S2, … Sm} be collection of subsets of U and Cost(S1), C(S2), … Cost(Sm) be costs of subsets.
+
+1) Let I represents set of elements included so far.  Initialize I = {}
+
+2) Do following while I is not same as U.
+    a) Find the set Si in {S1, S2, ... Sm} whose cost effectiveness is 
+       smallest, i.e., the ratio of cost C(Si) and number of newly added 
+       elements is minimum. 
+       Basically we pick the set for which following value is minimum.
+           Cost(Si) / |Si - I|
+    b) Add elements of above picked Si to I, i.e.,  I = I U Si
+    
+    
+Cost of Greedy Algorithm = Sum of costs of n elements 
+                        [putting k = 1, 2..n in above formula]
+                         <= (OPT/n + OPT(n-1) + ... + OPT/n) 
+                         <= OPT(1 + 1/2 + ...... 1/n)
+                        [Since 1 + 1/2 + .. 1/n ≈ Log n]
+                         <= OPT * Logn
+                         
+One approach to solving the Set Cover problem is to use a greedy algorithm, which iteratively selects the set that covers the most uncovered elements 
+until all elements are covered. Here’s how the greedy algorithm works:
+
+Initialize an empty set C to be the cover.
+
+While there are uncovered elements:
+a. Select the set S that covers the most uncovered elements.
+b. Add S to C.
+c. Remove all covered elements from the set of uncovered elements.
+
+Return C as the cover.
+This algorithm provides an approximate solution to the Set Cover problem. The approximation factor is ln(n), where n is the number 
+of elements in the universe U. In other words, the greedy algorithm will always find a cover that is at most ln(n) times larger than the optimal cover.                         
+    
