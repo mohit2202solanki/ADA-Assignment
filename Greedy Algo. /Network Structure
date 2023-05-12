@@ -1,4 +1,4 @@
-Simplify the Problem (Not considering millions of people) :--
+Simplify the Problem (Not considering millions of people) :-
 
 Linkedlist<Person> findPathBiBFS(HashMap<Integer, Person> people,
 									int source, int destination)
