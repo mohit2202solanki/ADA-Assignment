@@ -1,0 +1,29 @@
+The k-Median Problem is a clustering problem where the goal is to select k points (medians) from a given set of points to minimize the sum of distances
+between each point and its nearest median. Here's an outline of a randomized algorithm for the k-Median Problem:
+
+1. Initialize k medians: Select k random points from the given set of points as initial medians.
+
+2. Assign points to medians: For each point, assign it to the nearest median based on the distance metric used (e.g., Euclidean distance).
+
+3. Update medians: Update each median by setting it to the centroid of the points assigned to it.
+
+4. Repeat steps 2 and 3 until convergence or a maximum number of iterations.
+
+5. Return the final medians and the corresponding cost (sum of distances).
+
+The expected running time of the randomized algorithm for the k-Median Problem depends on the number of iterations and the time complexity of assigning points 
+to medians and updating medians.
+
+Assigning points to medians can be done in O(nk) time, where n is the number of points and k is the number of medians.
+
+Updating medians involves calculating the centroid of points assigned to each median, which can be done in O(n) time.
+
+The number of iterations required for convergence depends on the data and the problem instance. In the worst case, the algorithm may require a large number of 
+iterations to converge, leading to a higher running time. However, in practice, the algorithm often converges quickly.
+
+The approximation ratio of the randomized algorithm for the k-Median Problem is known to be at most O(log n), where n is the number of points. This means that the
+cost of the solution produced by the randomized algorithm is at most O(log n) times the cost of the optimal solution.
+
+It's important to note that the performance of the randomized algorithm can vary depending on the data and the problem instance. Analyzing the expected running 
+time and approximation ratio provides a theoretical understanding of the algorithm's behavior but may not reflect its performance in every scenario. Evaluating 
+the algorithm on a set of benchmark instances can provide practical insights into its effectiveness and efficiency.
