@@ -1,0 +1,43 @@
+include<iostream>
+using namespace std;
+ 
+int fibonacci(int n)
+{
+    int F[n+1];
+ 
+    F[0]=0;
+    F[1]=1;
+ 
+    for(int i=2;i<=n;i++)
+        F[i]=F[i-1]+F[i-2];
+ 
+    return F[n];
+}
+ 
+int main()
+{
+    int n;
+    cout<<"Enter the value of n"<<endl;
+     cin>>n;
+ 
+    cout<<"Required fibonacci number is ";
+    cout<<fibonacci(n);
+ 
+    cout<<endl;
+    return 0;
+}
+
+
+Time Complexity and Space Complexity of Dynamic Programming :
+
+The time complexity of the above code is T(N), i.e., linear. We have to find the sum of two terms, and it is repeated n times depending on the value of n.
+
+The space complexity of the above code is O(N).
+
+Time and Space Complexity of Recursive Method :
+
+The time complexity of the above code is T(2^N), i.e., exponential.
+The Space complexity of the above code is O(N) for a recursive series.
+
+Note:-
+Recursive functions are generally slower than non-recursive functions and may require a lot of time.
