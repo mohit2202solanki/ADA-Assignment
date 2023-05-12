@@ -1,0 +1,47 @@
+The Subset Sum Problem is an NP-complete problem that involves finding a subset of a given set of integers whose sum equals a target value.
+A randomized algorithm for the Subset Sum Problem is the Randomized Approximation Algorithm. Here's an implementation of the algorithm in Python:
+
+import random
+
+def randomized_subset_sum(numbers, target):
+    subset = []
+    current_sum = 0
+
+    # Randomly select numbers and add them to the subset until the sum exceeds the target
+    while current_sum < target:
+        number = random.choice(numbers)
+        if current_sum + number <= target:
+            subset.append(number)
+            current_sum += number
+
+    return subset
+
+# Example usage
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+target = 15
+
+subset = randomized_subset_sum(numbers, target)
+print("Subset:", subset)
+
+In this code, the `randomized_subset_sum` function takes a list of numbers and a target value as input. It iteratively selects numbers randomly from the
+list and adds them to the subset until the sum of the subset exceeds the target value. The algorithm does not guarantee an optimal solution but provides an
+approximate solution efficiently.
+
+To analyze the expected running time of the randomized algorithm for the Subset Sum Problem, we can use probabilistic techniques. The running time depends 
+on the number of iterations needed to find a subset whose sum exceeds the target value.
+
+Let's assume the input set contains n numbers. For each iteration, we randomly select a number from the set, which can be done in O(1) time. Therefore,
+the time complexity of each iteration is O(1).
+
+The probability of selecting a number that increases the current sum towards the target is p = k / n, where k is the number of numbers in the set whose sum 
+is less than the target. The probability of not selecting such a number is q = 1 - p.
+
+The expected number of iterations needed to find a subset whose sum exceeds the target value can be calculated as follows:
+
+E(X) = 1/p = n/k
+
+Therefore, the expected running time of the randomized algorithm can be approximated by O(n/k), where k is the number of numbers in the set whose sum is less 
+than the target value.
+
+It's important to note that the actual running time may vary depending on the specific distribution of numbers in the set and the target value. In some cases, 
+the algorithm may find a suitable subset quickly, while in other cases, it may take longer to find a suitable subset.
