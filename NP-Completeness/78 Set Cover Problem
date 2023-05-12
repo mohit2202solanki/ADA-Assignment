@@ -1,0 +1,23 @@
+The Set Cover Problem is an NP-complete problem that involves finding the minimum number of sets (from a given collection of sets) needed to cover all elements
+in a universe set. One well-known approximation algorithm for the Set Cover Problem is the Greedy Approximation Algorithm. Here's how it works:
+
+1. Start with an empty solution set that initially covers no elements.
+2. Repeat until all elements in the universe set are covered:
+   a. Select the set that covers the maximum number of uncovered elements.
+   b. Add this set to the solution set.
+   c. Remove the covered elements from the universe set.
+3. Return the solution set.
+
+The Greedy Approximation Algorithm has a guaranteed approximation ratio of ln(n), where n is the number of elements in the universe set. This means that the 
+solution produced by the algorithm is at most ln(n) times the size of the optimal solution.
+
+The running time complexity of the Greedy Approximation Algorithm depends on the number of sets and the number of elements in the universe set. Let m be the
+number of sets and n be the number of elements. The algorithm requires iterating through all sets and checking their elements. Hence, the worst-case time complexity
+is O(m * n).
+
+To further optimize the running time, you can use data structures such as hash tables or bitsets to efficiently track covered elements and determine the set that 
+covers the maximum number of uncovered elements. This can potentially reduce the running time to O(m * n / w), where w is the average number of elements covered by
+a set.
+
+Keep in mind that the Greedy Approximation Algorithm provides a near-optimal solution but may not always produce the optimal solution. However, it is widely used 
+in practice due to its simplicity and reasonable approximation guarantees.
