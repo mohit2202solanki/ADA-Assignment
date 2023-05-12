@@ -1,0 +1,84 @@
+The Maximum Clique Problem is an NP-hard problem, and finding an exact solution for large instances can be computationally expensive. Heuristic 
+algorithms provide a practical approach to finding approximate solutions efficiently. One such heuristic algorithm is the Iterated Local Search (ILS) algorithm. 
+
+The ILS algorithm is an iterative algorithm that combines a local search procedure with a perturbation mechanism. It starts with an initial solution and 
+iteratively improves it by performing local search and perturbing the solution. Here's an implementation of the ILS algorithm for the Maximum Clique Problem 
+in Python:
+
+import random
+
+def generate_initial_solution(graph):
+    # Generate an initial solution by randomly selecting vertices
+    vertices = list(graph.keys())
+    initial_solution = []
+    for vertex in vertices:
+        if all(vertex not in graph[v] for v in initial_solution):
+            initial_solution.append(vertex)
+    return initial_solution
+
+def local_search(graph, solution):
+    # Perform local search to improve the solution
+    improved = True
+    while improved:
+        improved = False
+        for vertex in solution.copy():
+            neighbors = [v for v in solution if v in graph[vertex]]
+            if len(neighbors) > len(solution):
+                solution = neighbors
+                improved = True
+    return solution
+
+def perturbation(solution):
+    # Perturb the solution by removing a random vertex
+    if len(solution) > 0:
+        random_vertex = random.choice(solution)
+        solution.remove(random_vertex)
+    return solution
+
+def iterated_local_search(graph, iterations):
+    best_solution = []
+    best_size = 0
+
+    for _ in range(iterations):
+        # Generate an initial solution
+        solution = generate_initial_solution(graph)
+
+        # Perform local search
+        solution = local_search(graph, solution)
+
+        # Update the best solution if necessary
+        if len(solution) > best_size:
+            best_solution = solution
+            best_size = len(solution)
+
+        # Perturb the solution
+        solution = perturbation(solution)
+
+    return best_solution
+
+# Example usage
+graph = {
+    'A': ['B', 'C', 'D'],
+    'B': ['A', 'C'],
+    'C': ['A', 'B', 'D', 'E'],
+    'D': ['A', 'C', 'E'],
+    'E': ['C', 'D']
+}
+
+exact_solution = ['A', 'C', 'D']
+heuristic_solution = iterated_local_search(graph, iterations=100)
+
+print("Exact Solution:", exact_solution)
+print("Heuristic Solution:", heuristic_solution)
+```
+
+In this code, the `generate_initial_solution` function generates an initial solution by randomly selecting vertices that are not adjacent to each other.
+The `local_search` function performs a local search procedure to improve the solution by iteratively removing vertices that have more neighbors within the 
+solution. The `perturbation` function perturbs the solution by randomly removing a vertex. The `iterated_local_search` function performs the main iteration
+loop, generating initial solutions, performing local search, and perturbing the solutions. It keeps track of the best solution found throughout the iterations.
+
+To compare the performance of the heuristic algorithm to the exact algorithm on benchmark instances, you would need a collection of benchmark graphs and their
+corresponding maximum cliques (if available). You can run the exact algorithm (such as the Bron-Kerbosch algorithm) and the heuristic algorithm (iterated local
+search) on each benchmark instance and compare the sizes of the maximum cliques found. You can also measure the running time of each algorithm to evaluate their 
+efficiency. Keep in mind that the exact algorithm guarantees an optimal solution but may be computationally expensive for large instances, while the heuristic
+algorithm provides an approximate solution efficiently.
