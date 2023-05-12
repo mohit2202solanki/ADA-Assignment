@@ -1,0 +1,28 @@
+The Steiner Tree Problem is an NP-hard problem, meaning that there is no known polynomial-time algorithm to solve it exactly. 
+However, we can use approximation algorithms to find solutions that are guaranteed to be within a certain factor of the optimal solution.
+
+One popular approximation algorithm for the Steiner Tree Problem is the Nearest Neighbor Algorithm. The algorithm works as follows:
+
+1. Select an arbitrary vertex as the initial vertex.
+2. Repeat until all terminals are connected:
+   a. Find the nearest terminal to the current set of connected vertices.
+   b. Add the nearest terminal and the corresponding edge to the solution.
+   c. Add the nearest terminal to the set of connected vertices.
+3. Return the resulting tree as the approximate Steiner tree.
+
+The approximation ratio of the Nearest Neighbor Algorithm is known to be at most 2. In other words, the cost of the approximate Steiner
+tree found by the algorithm is guaranteed to be at most twice the cost of the optimal Steiner tree.
+
+The running time complexity of the Nearest Neighbor Algorithm depends on the number of vertices and edges in the graph, as well as the number of 
+terminals. Let's denote n as the number of vertices, m as the number of edges, and t as the number of terminals.
+
+The main part of the algorithm is the repeated selection of the nearest terminal, which requires O(t) time in each iteration. Since there are t terminals
+and the algorithm connects each terminal exactly once, the total running time for this part is O(t^2).
+
+Additionally, the algorithm may need to check the distance between each pair of vertices to find the nearest terminal, which can be done in O(n^2) time. 
+Therefore, the overall running time complexity of the Nearest Neighbor Algorithm is O(t^2 + n^2).
+
+It's important to note that the Nearest Neighbor Algorithm is a simple and efficient approximation algorithm for the Steiner Tree Problem, but 
+it may not always produce the best possible approximation. There are other more sophisticated algorithms with improved approximation ratios, such as the
+Christofides' algorithm, but they typically have higher running time complexities. The choice of algorithm depends on the specific requirements of the problem
+instance and the trade-off between running time and approximation quality.
